@@ -1,7 +1,9 @@
-﻿using System;
+﻿using OscarATMApp.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace OscarATMApp.UI
@@ -20,6 +22,32 @@ namespace OscarATMApp.UI
             Console.WriteLine("Please note that you do not need physical ATM card here. Thanks");
 
             Utility.PressEnterToContinue();
+        }
+
+
+        internal static UserAccount UserLoginForm()
+        {
+            UserAccount tempUserAccount = new UserAccount();
+
+            tempUserAccount.CardNumber = Validator.Convert<long>("Your card number.");
+            tempUserAccount.CardPin = Convert.ToInt32(Utility.GetSecretInput("Enter your Card PIN"));
+            return tempUserAccount;
+        }
+
+        internal static void LoginProgress()
+        {  
+            Console.WriteLine("\nChecking card number and PIN...");
+            Utility.PrintDotAnimation();            
+
+        }
+
+
+        internal static void PrintLockScreen()
+        {
+            Console.Clear();
+            Utility.PrintMessage("Your account is locked. Please visit the nearest branch to unlock your account. Thank you.", true);
+            Utility.PressEnterToContinue();
+            Environment.Exit(1);
         }
 
     }
