@@ -24,7 +24,6 @@ namespace OscarATMApp.UI
             Utility.PressEnterToContinue();
         }
 
-
         internal static UserAccount UserLoginForm()
         {
             UserAccount tempUserAccount = new UserAccount();
@@ -33,14 +32,11 @@ namespace OscarATMApp.UI
             tempUserAccount.CardPin = Convert.ToInt32(Utility.GetSecretInput("Enter your Card PIN"));
             return tempUserAccount;
         }
-
         internal static void LoginProgress()
         {  
             Console.WriteLine("\nChecking card number and PIN...");
             Utility.PrintDotAnimation();            
-
         }
-
 
         internal static void PrintLockScreen()
         {
@@ -48,6 +44,32 @@ namespace OscarATMApp.UI
             Utility.PrintMessage("Your account is locked. Please visit the nearest branch to unlock your account. Thank you.", true);
             Utility.PressEnterToContinue();
             Environment.Exit(1);
+        }
+        internal static void WelcomeCustomer(string fullName)
+        {
+            Console.WriteLine($"Welcome back, {fullName}");
+            Utility.PressEnterToContinue();
+        } 
+
+        internal static void DisplayATMMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("---------- Menu ----------");
+            Console.WriteLine(":                        :");
+            Console.WriteLine("1. Account Balance       :");
+            Console.WriteLine("2. Cash Deposit          :");
+            Console.WriteLine("3. Withdrawal            :");
+            Console.WriteLine("4. Transafer             :");
+            Console.WriteLine("5. Transactions          :");
+            Console.WriteLine("6. Logout                :");
+
+        }
+
+        internal static void LogoutProgress()
+        {
+            Console.WriteLine("Thank you for banking with us.");
+            Utility.PrintDotAnimation();
+            Console.Clear();
         }
 
     }

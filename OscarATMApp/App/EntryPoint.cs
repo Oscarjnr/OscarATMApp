@@ -7,17 +7,13 @@ using System.Threading.Tasks;
 
 namespace OscarATMApp.App
 {
-    internal class EntryPoint
+    class EntryPoint
     {
         static void Main(string[] args)
         {
-            AppDisplay.Welcome();
             ATMApp atmApp = new ATMApp();
             atmApp.InitializeData();
-            atmApp.ConfirmUserCardNumberAndPin();
-            atmApp.Welcome();
-
-            Utility.PressEnterToContinue();
+            atmApp.Run();
         }
     }
 }

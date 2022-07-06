@@ -1,4 +1,5 @@
 ﻿using OscarATMApp.Model.Entities;
+using OscarATMApp.Model.Enums;
 using OscarATMApp.Model.Interfaces;
 using OscarATMApp.UI;
 using System;
@@ -7,12 +8,19 @@ using System.Threading;
 
 namespace OscarATMApp
 {
-    public class ATMApp : IUserLogin
+    public class ATMApp : IUserLogin, IUserAccountActions
     {
         private List<UserAccount> userAccountList;
         private UserAccount selectedAccount;
 
-
+        public void Run()
+        {
+            AppDisplay.Welcome();
+            ConfirmUserCardNumberAndPin();
+            AppDisplay.WelcomeCustomer(selectedAccount.FullName);
+            AppDisplay.DisplayATMMenu();
+            ProcessMenuOption();
+        }
         public void InitializeData()
         {
             userAccountList = new List<UserAccount>
@@ -69,10 +77,55 @@ namespace OscarATMApp
 
         }
 
-        public void Welcome()
+        private void ProcessMenuOption()
         {
-            Console.WriteLine($"Welcome back, {selectedAccount.FullName}");
+            switch (Validator.Convert<int>("an option:"))
+            {
+                case (int)ATMMenu.CheckBalance:
+                    CheckBalance();
+                    break;
+
+                case (int)ATMMenu.MakeDeposit:
+                    Console.WriteLine("Making deposit...");
+                    break;
+
+                case (int)ATMMenu.MakeWithdrawal:
+                    Console.WriteLine("Making withdrawal...");
+                    break;
+
+                case (int)ATMMenu.MakeTransfer:
+                    Console.WriteLine("Making transfer...");
+                    break;
+
+                case (int)ATMMenu.ViewTransactions:
+                    Console.WriteLine("Viewing transactions...");
+                    break;
+
+                case (int)ATMMenu.Logout:
+                    AppDisplay.LogoutProgress();
+                    Utility.PrintMessage("You have successfully logged out.");
+                    Run();
+                    break;
+
+                default:
+                    Utility.PrintMessage("Invalid Option.", false);
+                    break;
+            }
         }
 
+        public void CheckBalance()
+        {
+            Utility.PrintMessage($"Your account balance is: {Utility.FormatAmount(selectedAccount.AccountBalance)}");
+        }
+
+        public void MakeDeposit()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void MakeWithdrawal()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
