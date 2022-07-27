@@ -10,7 +10,13 @@ namespace OscarATMApp.UI
 {
     public static class Utility
     {
-        private static CultureInfo culture = new CultureInfo("en-NG");
+        private static long tranId;
+        private static CultureInfo culture = new CultureInfo("IG-NG");
+
+        public static long GetTransactionId()
+        {
+            return ++tranId;
+        }
         public static string GetSecretInput(string prompt)
         {
             bool isPrompt = true;
